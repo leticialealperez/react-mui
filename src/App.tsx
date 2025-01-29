@@ -1,12 +1,11 @@
 import { CssBaseline } from "@mui/material";
-import { ButtonUsage } from "./components/Button";
+import { AppRoutes } from "./configs/AppRoutes";
 
 export function App() {
   return (
     <>
       <CssBaseline />
-      <h1>Vite + React</h1>
-      <ButtonUsage />
+      <AppRoutes />
     </>
   );
 }
