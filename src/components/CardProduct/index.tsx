@@ -9,6 +9,11 @@ import {
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { Product } from "../../types/product.type";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import {
+  incrementByAmount,
+  selectCount,
+} from "../../store/modules/counter/counterSlice";
 
 interface CardProductProps {
   product: Product;
@@ -21,6 +26,12 @@ export function CardProduct({
   handleDeleteProduct,
   prepareUpdated,
 }: CardProductProps) {
+  // lendo o valor do estado global
+  const count = useAppSelector(selectCount);
+
+  // para modificar o estado global precisa de um disparador
+  const dispatch = useAppDispatch();
+
   const handleConfirmDelete = () => {
     const confirmed = confirm("Tem certeza que deseja deletar o produto?");
 
@@ -31,6 +42,8 @@ export function CardProduct({
 
   return (
     <Grid2 key={product.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+      <p>{count}</p>
+
       <Card sx={{ maxWidth: 320 }}>
         <CardMedia
           sx={{ height: 280 }}
@@ -38,7 +51,13 @@ export function CardProduct({
           title={product.name}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5">
+          <Typography
+            gutterBottom
+            variant="h5"
+            onClick={() => {
+              dispatch(incrementByAmount(10));
+            }}
+          >
             {product.name}
           </Typography>
 
